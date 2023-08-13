@@ -1,0 +1,44 @@
+// Create a web app
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('index');
+}
+
+// Append data to a CSV file
+function appendToCSV(data) {
+  var validCodes = ['x', 'y', 'z'];
+
+  if (validCodes.includes(data)) {
+    var cache = CacheService.getScriptCache();
+    var cachedData = cache.get('csvData');
+
+    if (!cachedData) {
+      cachedData = data;
+    } else {
+      cachedData += '\n' + data;
+    }
+
+    var cacheCount = Number(cache.get('cacheCount')) || 0;
+    cacheCount++;
+
+    if (cacheCount >= 10) {
+      appendCSVToFile(cachedData);
+      cache.put('csvData', '');
+      cache.put('cacheCount', '0');
+    } else {
+      cache.put('csvData', cachedData);
+      cache.put('cacheCount', cacheCount.toString());
+    }
+
+    return 'Data added to cache.';
+  } else {
+    return 'No active code.';
+  }
+}
+
+// Append cached data to CSV file
+function appendCSVToFile(data) {
+  var folder = DriveApp.getFolderById('1DeCysx3nc0EI-a6R8Gvt3qnIwaTNWW-n'); // Replace with your folder ID
+  var file = folder.getFilesByName('CSVdatahere').next(); // Get the existing CSV file
+  var csvContent = file.getBlob().getDataAsString() + '\n' + data;
+  file.setContent(csvContent);
+}
