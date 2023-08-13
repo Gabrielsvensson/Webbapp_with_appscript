@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <base target="_top">
+</head>
+<body>
+  <h1>CSV Data Entry</h1>
+  <input type="text" id="dataInput" placeholder="Enter x, y, or z...">
+  <button onclick="submitData()">Submit</button>
+  
+  <div id="message"></div>
+  
+  <script>
+    function submitData() {
+      var data = document.getElementById('dataInput').value;
+      google.script.run.withSuccessHandler(showMessage).appendToCSV(data);
+    }
+    
+    function showMessage(response) {
+      document.getElementById('message').textContent = response;
+      document.getElementById('dataInput').value = '';
+    }
+  </script>
+</body>
+</html>
