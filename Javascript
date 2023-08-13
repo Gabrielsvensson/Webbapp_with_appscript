@@ -37,8 +37,8 @@ function appendToCSV(data) {
 
 // Append cached data to CSV file
 function appendCSVToFile(data) {
-  var folder = DriveApp.getFolderById('1DeCysx3nc0EI-a6R8Gvt3qnIwaTNWW-n'); // Replace with your folder ID
-  var file = folder.getFilesByName('CSVdatahere').next(); // Get the existing CSV file
+  var folder = DriveApp.getFolderById('(drive)Folder id'); // Replace with your folder ID
+  var file = folder.getFilesByName('FileName').next(); // Get the existing CSV file
   var csvContent = file.getBlob().getDataAsString() + '\n' + data;
   file.setContent(csvContent);
 }
