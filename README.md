@@ -4,12 +4,14 @@ Next, I transport the data into a CSV file for simple future analysis. When you 
 go into Google Sheets and do =Importdata(URL). The best practice would be to include it in a query function for filtering, and sorting.
 
 // Create a web app
+
 function doGet() {
   return HtmlService.createHtmlOutputFromFile('index');
 }
 This part of the code sets up a web app. A web app is like a webpage, but it's generated and controlled using code. The doGet() function is the entry point of the web app. It returns the content of an HTML file called 'index', creating the user interface for the app.
 
 // Append data to a CSV file
+
 function appendToCSV(data) {
   var validCodes = ['x', 'y', 'z'];
 
@@ -52,6 +54,7 @@ If the cache count is less than 10, it just updates the cache with the new data 
 It returns a message indicating whether the data was added to the cache or if the provided code was invalid.
 
 // Append cached data to CSV file
+
 function appendCSVToFile(data) {
   var folder = DriveApp.getFolderById('(drive)Folder id'); // Replace with your folder ID
   var file = folder.getFilesByName('FileName').next(); // Get the existing CSV file
